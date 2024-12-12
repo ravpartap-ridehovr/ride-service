@@ -1,0 +1,130 @@
+syntax = "proto3";
+package RideBook;
+option go_package = "github.com/ridehovr/rides/gen/protos/api/rides/v1";
+
+service  LocationUpdateService{
+  rpc UpdateUserLocation(stream UpdateUserLocationRequest) returns (UpdateUserLocationResponse);
+}
+service RideService {
+  rpc FindRide(FindRideRequest) returns (stream FindRideResponse);
+  rpc TrackRide(TrackRideRequest) returns (stream TrackRideResponse);
+  rpc TrackTrip(TrackTripRequest) returns (stream TrackTripResponse);
+}
+service DriverService {
+  rpc ActiveDriver(stream ActiveDriverRequest) returns (stream ActiveDriverResponse);
+}
+service TripService {
+  rpc TripStartNUpdates(stream TripStartNUpdatesRequest) returns (stream TripStartNUpdatesResponse);
+}
+message LOC{
+  double latitude = 1;
+  double longitude = 2;
+}
+message UpdateUserLocationRequest {
+  string userId = 1;
+  string userType =2;
+  LOC  userLocation=3;
+  string timestamp = 4;
+}
+message UpdateUserLocationResponse {
+  bool success = 1;
+}
+message FindRideRequest {
+  string riderId = 1;
+  LOC pickUp = 2;
+  LOC dropOf = 3;
+  string rideType=4;
+}
+message RideDetails {
+  string otp = 1;
+  string driverID=2;
+  string driverLicensePlateNo=3;
+  string tripId=4;
+}
+message NearDriverLocations{
+  LOC DeriverLocation=1;
+}
+message FindRideResponse {
+  oneof request {
+    RideDetails rideDetails=1;
+    NearDriverLocations nearDriverLocations=2;
+  }
+}
+message TrackRideRequest {
+  string driverId=1;
+  string tripId=2;
+}
+message TrackRideResponse {
+  string status=1;
+  LOC driverLocation=2;
+}
+message TrackTripRequest {
+  string tripId=1;
+}
+
+message TrackTripResponse{
+  string tripId=1;
+  LOC DriverLocation=2;
+  string tripStatus=3;
+  string tripPayment=4;
+}
+
+
+message ActiveDriverRequest{
+  oneof request {
+    DriverOnlineRequest driverOnlineRequest=1;
+    NewRideRespose  newRideResponse=2;
+    ReachedAtPickupRequest reachedAtPickupRequest=3;
+  }
+}
+
+message DriverOnlineRequest{
+  string driverId=1;
+}
+
+message NewRideRespose{
+  string status=1;
+  string tripId=2;
+  string driverId=3;
+}
+
+message ReachedAtPickupRequest{
+  string tripId=1;
+  string status=2;
+  string timestamp=3;
+}
+
+message ActiveDriverResponse{
+  oneof response {
+    DriverOnlineResponse driverOnlineResponse=1;
+    NewRideRequest  newRideRequest=2;
+    ReachedAtPickupResponse reachedAtPickupResponse=3;
+  }
+}
+message DriverOnlineResponse{
+  string ack=1;
+}
+
+message NewRideRequest {
+  string rideId=1;
+  string distance=2;
+  string price=3;
+}
+
+message ReachedAtPickupResponse {
+  string ack=1;
+}
+
+
+message TripStartNUpdatesRequest{
+  string tripId=1;
+  string tripStage=2;
+  string userType=3;
+}
+message TripStartNUpdatesResponse{
+  string tripId=1;
+  LOC DriverLocation=2;
+  string tripStatus=3;
+  string tripPayment=4;
+}
+

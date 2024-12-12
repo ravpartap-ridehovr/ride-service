@@ -1,0 +1,46 @@
+# service configurations v0.0.1
+# all the endpoints will be auto updated when deployed on aws
+
+# service proto path
+protoPath: "hovr-apis/services/iam-service/v1/"
+
+
+# sevice specific variables
+service:
+  #name
+  name: "iam"
+  # service port
+  port: "3000"
+  twilioPhoneNumber: "+17472267537"
+  AuthPublicKey: 0c98bee63209488e5cdc2347faf2269856cea63e689b869ce65915eb50d8f9cd
+  AuthPrivateKey: 87fb6ad5684a63a019da906fb015142ba9f830a641cfa47637985552810aec110c98bee63209488e5cdc2347faf2269856cea63e689b869ce65915eb50d8f9cd
+  secrets:
+    twilioUsername: "asd"
+    twilioAPIToken: "asd"
+
+broker:
+  endpoint: "172.20.0.3"
+  port: "5672"
+  secrets:
+    username: "guest"
+    password: "guest" 
+
+
+redis:
+  endpoint: "172.20.0.3:6379"
+  
+postgres:
+  dns: "host=172.18.0.2 user=postgres password=postgres dbname=ridebook port=5432 sslmode=disable "
+# clients:cd 
+#   - 
+#     name: "iam"
+#     protoPath: "ds-apis/services/iam-service/v1/"
+
+# localdb:
+#   region: "us-west-2"
+#   endpoint: "http://172.18.0.3"
+#   port: ":8000"
+#   secrets:
+#     accesskeyId: "733sp2"
+#     secretaccesskeyId: "ni26sd"
+

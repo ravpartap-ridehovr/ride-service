@@ -1,0 +1,15 @@
+"entities": {
+	//  Create, Get, Update, Delete, ListByPhoneNo
+	// "preLoginUser": {
+	// 	"Pk": ["user_type" , "login_type"],
+	// 	"Sk": ["phone_number"],
+	// 	"Gsi1Pk": ["user_type" , "login_type" , "country_code" ],
+	// 	"Gsi1Sk": ["created_at"],
+	// },
+	"user": {
+		"Pk": ["user_type", "phone_number"],
+		"Sk": ["user_type"],
+		"Gsi1Pk": ["user_type" , "email" ],
+		"Gsi1Sk": ["created_at"],
+	},
+}
